@@ -1,23 +1,33 @@
 def solution(genres, plays):
     dic = {}
-    answer = []
-    for i in range(len(plays)):
+    dic2 = {}
+    answer = list()
+    for i in range(len(genres)):
         if dic.get(genres[i]):
             dic[genres[i]] += plays[i]
+            dic2[genres[i]].append(plays[i])
         else:
-            dic[genres[i]] = 0
             dic[genres[i]] = plays[i]
+            dic2[genres[i]] = list()
+            dic2[genres[i]].append(plays[i])
+    index = sorted(dic.values(), reverse=True)
     key, value = dic.keys(), dic.values()
-    temp = list(value)
-    temp = temp.index(max(temp))
-    g = list(key)[temp]
-    val = list()
-    for i in range(len(genres)):
-        if genres[i] == g:
-            val.append(plays[i])
-    temp = sorted(val, reverse=True)
-    for i in range(0, 2):
-        answer.append(plays.index(temp[i]))
+    temp = list()
+    i = 0
+    j = 0
+    while True:
+        tmp = index.pop(0)
+        for key, value in dic.items():
+            if value == tmp:
+                temp.append(key)
+                break
+        if len(index) == 0:
+            break
+    for i in temp:
+        list1 = sorted(dic2[i], reverse=True)
+        answer.append(plays.index(list1[0]))
+        answer.append(plays.index(list1[1]))
+
     return answer
 
 
