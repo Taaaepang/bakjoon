@@ -1,3 +1,4 @@
+#괄호 문자열 풀이
 a = int(input())
 for i in range(a):
     b = input()
